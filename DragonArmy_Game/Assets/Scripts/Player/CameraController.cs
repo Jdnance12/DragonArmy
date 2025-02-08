@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameManager gm;
     [SerializeField] Transform playerPos;
     [SerializeField] float followSpeed;
 
@@ -16,7 +17,8 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = GameManager.instance;
+        playerPos = gm.player.transform;
     }
 
     // Update is called once per frame
