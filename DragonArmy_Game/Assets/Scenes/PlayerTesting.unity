@@ -1978,9 +1978,9 @@ MonoBehaviour:
   minSpeed: 2.5
   maxSpeed: 7
   speedStep: 15
-  gravity: 40
+  gravity: 9.81
   groundCheckDistance: 0.1
-  jumpForce: 15
+  jumpForce: 5
   jumpCount: 0
   jumpMax: 1
   climbSpeed: 6
