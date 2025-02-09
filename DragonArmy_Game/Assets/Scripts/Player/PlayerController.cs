@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameManager gm;
+
     [Header("---- Bools ----")]
-    public bool isSneaking;
     public bool isGrounded;
+    public bool isCrouched;
     public bool canClimb;
-    public bool canGrabLedge;
-    public bool isGrabbingLedge;
+    public bool isGrabbing;
 
     [Header("---- Player Stats ----")]
     [Header("Movement")]
@@ -22,121 +23,52 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jumping/Physics")]
     [SerializeField] float gravity;
-    [SerializeField] float groundCheckDistance = 0.1f;
     [SerializeField] float jumpForce;
-    [SerializeField] int jumpCount;
-    [SerializeField] int jumpMax;
     private Vector3 velocity;
 
     [Header("Climbing")]
     [SerializeField] float climbSpeed;
-    [SerializeField] float ledgeGrabDistance = 1.0f;
-    [SerializeField] float ledgeClimbUpDistance = 0.5f;
+    [SerializeField] float wallRunTime;
+    private float wallRunTimer;
 
     [Header("---- Components ----")]
-    //[SerializeField] Rigidbody rb;
     [SerializeField] CharacterController controller;
+    [SerializeField] Animator animatorCtrlr;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] LayerMask wallLayer;
-    [SerializeField] LayerMask ledgeLayer;
+    private Transform currentGrabPoint;
     private RaycastHit hit;
+
+    [Header("Grab Points")]
+    [SerializeField] float grabPointDistance;
+    [SerializeField] float lerpSpeed;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
+        gm = GameManager.instance;
         controller = GetComponent<CharacterController>();
+        animatorCtrlr = GetComponent<Animator>();
+        wallRunTimer = wallRunTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //RBMovement();
         CcMovement();
-        CheckForLedges();
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Climbable"))
-        {
-            canClimb = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Climbable"))
-        {
-            canClimb = false;
-        }
-    }
-    //void RBMovement()
-    //{
-    //    isGrounded = CheckGrounded();
-    //    // Movement Input
-    //    movement.x = Input.GetAxisRaw("Horizontal");
-    //    movement.z = Input.GetAxisRaw("Vertical");
-
-    //    movement = movement.normalized;
-
-    //    // Player Movement
-    //    if (Input.GetKeyDown(KeyCode.LeftShift)) // Toggle Sprint and Speed
-    //    {
-    //        isSneaking = !isSneaking;
-    //    }
-    //    if (isSneaking)
-    //    {
-    //        currentSpeed = moveSpeed / speedMultiplier;
-    //    }
-    //    else
-    //    {
-    //        currentSpeed = moveSpeed;
-
-    //    }
-
-    //    Vector3 move = new Vector3(movement.x, 0, movement.z);
-    //    rb.MovePosition(rb.position + move * currentSpeed * Time.deltaTime);
-
-    //    // Rotate to face direction of movement
-    //    if (movement != Vector3.zero)
-    //    {
-    //        Quaternion rot = Quaternion.LookRotation(movement, Vector3.up);
-    //        rb.MoveRotation(rot);
-    //    }
-    //}
-    bool CheckGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
-    }
-    void CheckForLedges()
-    {
-        //RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, transform.forward, out hit, ledgeGrabDistance))
-        {
-            if (hit.collider.CompareTag("Ledge"))
-            {
-                canGrabLedge = true;
-            }
-            else
-            {
-                canGrabLedge = false;
-            }
-            
-        }
-        else
-        {
-            canGrabLedge = false;
-        }
     }
     void CcMovement()
     {
         //Gravity
-        if (!isGrabbingLedge || !isGrounded || !canClimb)
+        if (!isGrounded || !canClimb)
         {
             controller.Move(velocity * Time.deltaTime);
             velocity.y -= gravity * Time.deltaTime;
 
+        }
+        else if (velocity.y < 0)
+        {
+            velocity.y = -2f; // Ensure player stays grounded
         }
         isGrounded = controller.isGrounded;
         // Movement Input
@@ -163,37 +95,63 @@ public class PlayerController : MonoBehaviour
             transform.rotation = rot;
         }
 
-        //Jumping
-        if (Input.GetButtonDown("Jump"))
+        // Crouching
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if (isGrounded)
-            {
-                velocity.y = jumpForce;
-            }
-            else if (canGrabLedge && !isGrabbingLedge)
-            {
-                GrabLedge();
-            }
+            isCrouched = !isCrouched;
+            animatorCtrlr.SetBool("IsCrouched", isCrouched);
         }
-
-        WallRun();
-    }
-    void GrabLedge()
-    {
-        isGrabbingLedge = true;
-        transform.position = new Vector3(hit.point.x, hit.point.y + ledgeClimbUpDistance, transform.position.z); // Move to ledge position
-
-        velocity = Vector3.zero; // Stops gravity
-    }
-    void WallRun()
-    {
-        if(Input.GetKey(KeyCode.Space) && canClimb)
+        if (isCrouched)
         {
-            velocity.y = climbSpeed;
+            maxSpeed = 5;
+            controller.height = 1.0f;
+            controller.center = new Vector3(0, 0.55f, 0);
         }
         else
         {
-            velocity.y -= gravity * Time.deltaTime;
+            maxSpeed = 7;
+            controller.height = 1.75f;
+            controller.center = new Vector3(0, 0.9f, 0);
+        }
+
+        //Jumping
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded && !canClimb && !isCrouched)
+            {
+                velocity.y = jumpForce;
+            }
+        }
+
+        WallPhysics();
+    }
+    void WallPhysics()
+    {
+        if (Input.GetKey(KeyCode.Space) && canClimb && !isGrabbing)
+        {
+            if (wallRunTimer > 0)
+            {
+                velocity.y = climbSpeed;
+                wallRunTimer -= Time.deltaTime;
+            }
+        }
+        if (isGrounded)
+        {
+            wallRunTimer = wallRunTime;
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Climbable") && wallRunTimer > 0)
+        {
+            canClimb = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Climbable"))
+        {
+            canClimb = false;
         }
     }
 }

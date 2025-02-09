@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Ledge
   - Climbable
+  - GrabPoint
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
-  - 
+  - WallLayer
+  - GroundLayer
   - 
   - 
   - 
