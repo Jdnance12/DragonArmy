@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
     void WallTransparency()
     {
         RaycastHit hit;
-        Vector3 direction = playerPos.position - Camera.main.transform.position;
+        Vector3 direction = (playerPos.position + Vector3.up * 1f) - Camera.main.transform.position;
         Debug.DrawRay(Camera.main.transform.position, direction, Color.red);
 
         if (Physics.Raycast(Camera.main.transform.position, direction, out hit, direction.magnitude, wallLayer))

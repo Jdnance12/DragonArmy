@@ -8,8 +8,13 @@ public class PlayerController : MonoBehaviour
     GameManager gm;
 
     [Header("---- Bools ----")]
+    [Header("Grounded Bools")]
     public bool isGrounded;
     public bool isCrouched;
+
+    [Header("Wall Physics Bools")]
+    public bool wallInRange;
+    public bool canWallRun;
     public bool canClimb;
     public bool isGrabbing;
 
@@ -27,8 +32,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
 
     [Header("Climbing")]
+    [SerializeField] float wallDetectDistonce;
     [SerializeField] float climbSpeed;
     [SerializeField] float wallRunTime;
+    private Collider ledgeCollider;
     private float wallRunTimer;
 
     [Header("---- Components ----")]
@@ -60,7 +67,7 @@ public class PlayerController : MonoBehaviour
     void CcMovement()
     {
         //Gravity
-        if (!isGrounded || !canClimb)
+        if (!isGrounded || !canClimb || !isGrabbing)
         {
             controller.Move(velocity * Time.deltaTime);
             velocity.y -= gravity * Time.deltaTime;
@@ -85,50 +92,80 @@ public class PlayerController : MonoBehaviour
             moveSpeed = Mathf.Clamp(moveSpeed, minSpeed, maxSpeed);
         }
 
-        Vector3 move = new Vector3(movement.x, 0, movement.z);
-        controller.Move(move * moveSpeed * Time.deltaTime);
-
-        // Rotate to face direction of movement
-        if (movement != Vector3.zero)
+        if (isGrabbing)
         {
-            Quaternion rot = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = rot;
-        }
-
-        // Crouching
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            isCrouched = !isCrouched;
-            animatorCtrlr.SetBool("IsCrouched", isCrouched);
-        }
-        if (isCrouched)
-        {
-            maxSpeed = 5;
-            controller.height = 1.0f;
-            controller.center = new Vector3(0, 0.55f, 0);
+            // Turn off Gravity
+            // Climbing Movement
+            // Press Spacebar to deacive isGrabbing
         }
         else
         {
-            maxSpeed = 7;
-            controller.height = 1.75f;
-            controller.center = new Vector3(0, 0.9f, 0);
-        }
+            Vector3 move = new Vector3(movement.x, 0, movement.z);
+            controller.Move(move * moveSpeed * Time.deltaTime);
 
-        //Jumping
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (isGrounded && !canClimb && !isCrouched)
+            // Rotate to face direction of movement
+            if (movement != Vector3.zero)
             {
-                velocity.y = jumpForce;
+                Quaternion rot = Quaternion.LookRotation(movement, Vector3.up);
+                transform.rotation = rot;
+            }
+
+            // Crouching
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                isCrouched = !isCrouched;
+            }
+            if (isCrouched)
+            {
+                maxSpeed = 5;
+                controller.height = 1.0f;
+                controller.center = new Vector3(0, 0.55f, 0);
+            }
+            else
+            {
+                maxSpeed = 7;
+                controller.height = 1.75f;
+                controller.center = new Vector3(0, 0.9f, 0);
+            }
+
+            //Jumping
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (isGrounded && !canClimb && !isCrouched && !canWallRun)
+                {
+                    velocity.y = jumpForce;
+                }
             }
         }
 
         WallPhysics();
+        AnimationStates();
     }
     void WallPhysics()
     {
-        if (Input.GetKey(KeyCode.Space) && canClimb && !isGrabbing)
+
+        RaycastHit hit;
+        Vector3 direction = transform.forward;
+
+        if(Physics.Raycast(transform.position + Vector3.up * 1f, direction, out hit, wallDetectDistonce))
         {
+            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Climbable"))
+            {
+                canWallRun = true;
+            }
+            else
+            {
+                canWallRun = false;
+            }
+        }
+        else
+        {
+            canWallRun = false;
+        }
+
+        if (Input.GetKey(KeyCode.Space) && canWallRun && !isGrabbing)
+        {
+            canWallRun = false;
             if (wallRunTimer > 0)
             {
                 velocity.y = climbSpeed;
@@ -140,18 +177,9 @@ public class PlayerController : MonoBehaviour
             wallRunTimer = wallRunTime;
         }
     }
-    void OnTriggerEnter(Collider other)
+    void AnimationStates()
     {
-        if (other.CompareTag("Climbable") && wallRunTimer > 0)
-        {
-            canClimb = true;
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Climbable"))
-        {
-            canClimb = false;
-        }
+        //Crouching
+        animatorCtrlr.SetBool("IsCrouched", isCrouched);
     }
 }
