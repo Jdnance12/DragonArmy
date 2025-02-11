@@ -12,7 +12,6 @@ public class Damage : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (type == damageType.moving)
