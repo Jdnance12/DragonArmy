@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float minSpeed;
     [SerializeField] float maxSpeed;
     [SerializeField] float speedStep;
+    [SerializeField] float sprintSpeed;
     private Vector3 movement;
 
     [Header("Jumping/Physics")]
@@ -101,7 +102,15 @@ public class PlayerController : MonoBehaviour
         else
         {
             Vector3 move = new Vector3(movement.x, 0, movement.z);
-            controller.Move(move * moveSpeed * Time.deltaTime);
+            if (Input.GetButton("Jump"))
+            {
+                isCrouched = false;
+                controller.Move(move * sprintSpeed * Time.deltaTime);
+            }
+            else
+            {
+                controller.Move(move * moveSpeed * Time.deltaTime);
+            }
 
             // Rotate to face direction of movement
             if (movement != Vector3.zero)
@@ -126,15 +135,6 @@ public class PlayerController : MonoBehaviour
                 maxSpeed = 7;
                 controller.height = 1.75f;
                 controller.center = new Vector3(0, 0.9f, 0);
-            }
-
-            //Jumping
-            if (Input.GetButtonDown("Jump"))
-            {
-                if (isGrounded && !canClimb && !isCrouched && !canWallRun)
-                {
-                    velocity.y = jumpForce;
-                }
             }
         }
 
