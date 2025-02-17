@@ -13,7 +13,7 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform shootPOS;
     [SerializeField] Transform headPOS;
 
-    [SerializeField] int HP;
+    [SerializeField] float HP;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int FOV;
     [SerializeField] int roamDist;
@@ -148,7 +148,7 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount)
     {
         HP -= amount;
         agent.SetDestination(GameManager.instance.player.transform.position);

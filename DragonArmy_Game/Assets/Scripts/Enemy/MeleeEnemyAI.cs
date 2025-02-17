@@ -9,7 +9,7 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     //[SerializeField] Animator anim;
     [SerializeField] int animSpeedTrans;
-    [SerializeField] int HP;
+    [SerializeField] float HP;
     [SerializeField] int roamDist;
     [SerializeField] int roamTimer;
 
@@ -128,7 +128,7 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
             agent.stoppingDistance = 0;
         }
     }
-    public void takeDamage(int amount)
+    public void takeDamage(float amount)
     {
         HP -= amount;
         agent.SetDestination(GameManager.instance.player.transform.position);

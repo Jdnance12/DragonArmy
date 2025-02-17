@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("---- Assets ----")]
     [Header("Player")]
     public GameObject player;
-    public CharacterController playerScript;
+    public PlayerController playerScript;
     public GameObject playerCam;
 
     [Header("UI")]
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.Find("Player");
-        playerScript = player.GetComponent<CharacterController>();
+        playerScript = player.GetComponent<PlayerController>();
         playerCam = GameObject.Find("CameraPos");
     }
 

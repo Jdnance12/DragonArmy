@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UpperBody_AnimMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: AniFem_Model
+    m_Weight: 0
+  - m_Path: Armature_Female
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Lft_Leg_IK
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Lft_Leg_IK/LFt_Knee_Pole
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Lft_Leg_IK/LFt_Knee_Pole/LFt_Knee_Pole_end
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Rt_Leg_IK
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Rt_Leg_IK/Rt_Knee_Pole
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Rt_Leg_IK/Rt_Knee_Pole/Rt_Knee_Pole_end
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt
+    m_Weight: 0
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Lft_UpperLeg_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Lft_UpperLeg_Jnt/Lft_LowerLeg_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Lft_UpperLeg_Jnt/Lft_LowerLeg_Jnt/Lft_Foot_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Lft_UpperLeg_Jnt/Lft_LowerLeg_Jnt/Lft_Foot_Jnt/Lft_Foot_Jnt_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt/Rt_GunHip_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt/Rt_GunHip_Jnt/Rt_GunHip_Jnt_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt/Rt_LowerLeg_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt/Rt_LowerLeg_Jnt/Rt_Foot_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Hip_Jnt/Rt_UpperLeg_Jnt/Rt_LowerLeg_Jnt/Rt_Foot_Jnt/Rt_Foot_Jnt_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Lft_Arm_Ctrl
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Lft_Arm_Ctrl/Lft_Arm_IK
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Lft_Arm_Ctrl/Lft_Arm_IK/Lft_Arm_IK_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Lft_Arm_Ctrl/Lft_Elbow_Pole
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Lft_Arm_Ctrl/Lft_Elbow_Pole/Lft_Elbow_Pole_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Rt_Arm_Ctrl
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Rt_Arm_Ctrl/Rt_Arm_IK
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Rt_Arm_Ctrl/Rt_Arm_IK/Rt_Arm_IK_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Rt_Arm_Ctrl/Rt_Elbow_Pole
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Rt_Arm_Ctrl/Rt_Elbow_Pole/Rt_Elbow_Pole_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Lft_Shoulder_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Lft_Shoulder_Jnt/Lft_UpperArm_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Lft_Shoulder_Jnt/Lft_UpperArm_Jnt/Lft_LowerArm_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Lft_Shoulder_Jnt/Lft_UpperArm_Jnt/Lft_LowerArm_Jnt/Lft_Hand_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Lft_Shoulder_Jnt/Lft_UpperArm_Jnt/Lft_LowerArm_Jnt/Lft_Hand_Jnt/Lft_Hand_Jnt_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Neck_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Neck_Jnt/Head_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Neck_Jnt/Head_Jnt/Head_Jnt_end
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt/Rt_UpperArm_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt/Rt_UpperArm_Jnt/Rt_LowerArm_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt/Rt_UpperArm_Jnt/Rt_LowerArm_Jnt/Rt_Hand_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt/Rt_UpperArm_Jnt/Rt_LowerArm_Jnt/Rt_Hand_Jnt/Rt_Gun_Jnt
+    m_Weight: 1
+  - m_Path: Armature_Female/Base_Jnt/Torso_Jnt/Spine1_jnt/Spine2_Jnt/Rt_Shoulder_Jnt/Rt_UpperArm_Jnt/Rt_LowerArm_Jnt/Rt_Hand_Jnt/Rt_Gun_Jnt/Rt_Gun_Jnt_end
+    m_Weight: 1

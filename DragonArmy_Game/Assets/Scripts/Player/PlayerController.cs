@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public bool isCrouched;
 
+    [Header("Attacking")]
+    public bool isAttackingWithSword;
+
     [Header("Wall Physics Bools")]
     public bool wallInRange;
     public bool canWallRun;
@@ -19,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public bool isGrabbing;
 
     [Header("---- Player Stats ----")]
+    [Header("Health")]
+    [SerializeField] public float maxHP = 100;
+    [SerializeField] float currentHP;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed;
     [SerializeField] float minSpeed;
@@ -43,6 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
     [SerializeField] Animator animatorCtrlr;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] SwordWeapon swordWeapon;
     private Transform currentGrabPoint;
     private RaycastHit hit;
 
@@ -58,12 +66,16 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animatorCtrlr = GetComponent<Animator>();
         wallRunTimer = wallRunTime;
+
+        //Initializing Stats
+        currentHP = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
         CcMovement();
+        Attack();
     }
     void CcMovement()
     {
@@ -181,5 +193,28 @@ public class PlayerController : MonoBehaviour
     {
         //Crouching
         animatorCtrlr.SetBool("IsCrouched", isCrouched);
+    }
+
+    void Attack()
+    {
+        if (Input.GetButtonDown("Fire1") && !isAttackingWithSword)
+        {
+            //animatorCtrlr.SetBool("SwordAttack", true);
+            StartCoroutine(SwordSwing());
+            //Player Sword Attack Coroutine
+        }
+    }
+    IEnumerator SwordSwing()
+    {
+        isAttackingWithSword = true;
+        swordWeapon.EnableCollider();
+        animatorCtrlr.SetBool("SwordAttack", true);
+        int layerIndex = animatorCtrlr.GetLayerIndex("UpperBody");
+        float animationDuration = animatorCtrlr.GetCurrentAnimatorStateInfo(layerIndex).length;
+        
+        yield return new WaitForSeconds(0.5f);
+        animatorCtrlr.SetBool("SwordAttack", false);
+        isAttackingWithSword = false;
+        swordWeapon.DisableCollider();
     }
 }
