@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SwordWeapon swordWeapon;
     private Transform currentGrabPoint;
     private RaycastHit hit;
+    public GameObject targetLocation;
 
     [Header("Grab Points")]
     [SerializeField] float grabPointDistance;
@@ -193,28 +194,5 @@ public class PlayerController : MonoBehaviour
     {
         //Crouching
         animatorCtrlr.SetBool("IsCrouched", isCrouched);
-    }
-
-    void Attack()
-    {
-        if (Input.GetButtonDown("Fire1") && !isAttackingWithSword)
-        {
-            //animatorCtrlr.SetBool("SwordAttack", true);
-            StartCoroutine(SwordSwing());
-            //Player Sword Attack Coroutine
-        }
-    }
-    IEnumerator SwordSwing()
-    {
-        isAttackingWithSword = true;
-        swordWeapon.EnableCollider();
-        animatorCtrlr.SetBool("SwordAttack", true);
-        int layerIndex = animatorCtrlr.GetLayerIndex("UpperBody");
-        float animationDuration = animatorCtrlr.GetCurrentAnimatorStateInfo(layerIndex).length;
-        
-        yield return new WaitForSeconds(0.5f);
-        animatorCtrlr.SetBool("SwordAttack", false);
-        isAttackingWithSword = false;
-        swordWeapon.DisableCollider();
     }
 }

@@ -28,4 +28,8 @@ public class ButtonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+    public void nextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
