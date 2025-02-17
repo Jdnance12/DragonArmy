@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuWin, menuLose;
     public bool isPaused;
     float timeScaleOrig;
 
@@ -62,5 +63,17 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
+    }
+    public void youLose()
+    {
+        statePause();
+        menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
+    public void youWin()
+    {
+        statePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 }
