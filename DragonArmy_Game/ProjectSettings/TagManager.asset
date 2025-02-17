@@ -10,6 +10,7 @@ TagManager:
   - Climbable
   - GrabPoint
   - WinConLocal
+  - Enemy
   layers:
   - Default
   - TransparentFX
