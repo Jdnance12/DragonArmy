@@ -9,6 +9,7 @@ TagManager:
   - Ledge
   - Climbable
   - GrabPoint
+  - WinConLocal
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - WallLayer
   - GroundLayer
   - Enemy
-  - 
+  - WinConLocal
   - 
   - 
   - 

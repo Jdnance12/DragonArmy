@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     private Transform currentGrabPoint;
     private RaycastHit hit;
+    public GameObject targetLocation;
 
     [Header("Grab Points")]
     [SerializeField] float grabPointDistance;
@@ -181,5 +182,14 @@ public class PlayerController : MonoBehaviour
     {
         //Crouching
         animatorCtrlr.SetBool("IsCrouched", isCrouched);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == targetLocation)
+        {
+            GameManager.instance.youWin();
+
+        }
+
     }
 }
