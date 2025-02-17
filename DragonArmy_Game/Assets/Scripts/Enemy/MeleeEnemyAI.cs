@@ -43,10 +43,10 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        float agentSpeed = agent.velocity.normalized.magnitude;
-        
-        if (playerInRange && canSeePlayer())
+        if (agent.isActiveAndEnabled)
         {
+
+            float agentSpeed = agent.velocity.normalized.magnitude;
             if (playerInRange && !canSeePlayer())
             {
                 if (!isRoaming && agent.remainingDistance < 0.01f)
@@ -65,30 +65,32 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
     }
     bool canSeePlayer()
     {
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
+        playerDir = GameManager.instance.player.transform.position + Vector3.up * 1f - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
         Debug.DrawRay(headPos.position, playerDir);
 
-        agent.SetDestination(GameManager.instance.player.transform.position);
-
-        if (agent.remainingDistance < agent.stoppingDistance)
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            faceTarget();
-        }
-
-        if (playerDir.magnitude <= attackRange)
-        {
-            Debug.Log("In Range!");
-
-            if (!isAttacking)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                StartCoroutine(attacking());
-            }
 
+                agent.SetDestination(GameManager.instance.player.transform.position);
+
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
+                if (!isAttacking)
+                {
+                    StartCoroutine(attacking());
+                }
+                
+            }
         }
         agent.stoppingDistance = 2;
-
         return true;
     }
     IEnumerator attacking()

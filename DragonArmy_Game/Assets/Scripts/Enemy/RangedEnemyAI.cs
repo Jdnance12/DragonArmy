@@ -95,7 +95,7 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
 
     bool canSeePlayer()
     {
-        playerDir = GameManager.instance.player.transform.position - headPOS.position;
+        playerDir = GameManager.instance.player.transform.position + Vector3.up * 1f - headPOS.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
         Debug.DrawRay(headPOS.position, playerDir);
