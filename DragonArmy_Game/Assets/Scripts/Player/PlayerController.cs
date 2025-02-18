@@ -218,4 +218,12 @@ public class PlayerController : MonoBehaviour
         isAttackingWithSword = false;
         swordWeapon.DisableCollider();
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == targetLocation)
+        {
+            GameManager.instance.youWin();
+        }
+    }
+
 }
