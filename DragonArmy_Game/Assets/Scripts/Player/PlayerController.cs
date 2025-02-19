@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour, IDamage
     private Transform currentGrabPoint;
     private RaycastHit hit;
     public GameObject targetLocation;
+    Color colorOrig;
+    [SerializeField] Renderer model;
 
     [Header("Grab Points")]
     [SerializeField] float grabPointDistance;
@@ -228,10 +230,17 @@ public class PlayerController : MonoBehaviour, IDamage
     public void takeDamage(float amount)
     {
         currentHP -= amount;
+        StartCoroutine(flashRed());
         if (currentHP <= 0)
         {
             //Hey I'm Dead!
             GameManager.instance.youLose();
         }
+    }
+    IEnumerator flashRed()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = colorOrig;
     }
 }
