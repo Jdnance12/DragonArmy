@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamage
 {
     GameManager gm;
 
@@ -225,5 +225,13 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.youWin();
         }
     }
-
+    public void takeDamage(float amount)
+    {
+        currentHP -= amount;
+        if (currentHP <= 0)
+        {
+            //Hey I'm Dead!
+            GameManager.instance.youLose();
+        }
+    }
 }
