@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin, menuLose;
+    public Image playerHPBar;
+    [SerializeField] TMP_Text playerHPCount;
     public bool isPaused;
     float timeScaleOrig;
 
@@ -75,5 +79,13 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
+    }
+    public void updatePlayerHpUI(float currHP)
+    {
+        if (playerScript != null)
+        {
+            playerHPCount.text = currHP.ToString("F0");
+        }
+
     }
 }

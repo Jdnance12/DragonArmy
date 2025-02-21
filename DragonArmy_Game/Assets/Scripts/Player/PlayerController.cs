@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void Start()
     {
         gm = GameManager.instance;
+        updatePlayerUI();
         controller = GetComponent<CharacterController>();
         animatorCtrlr = GetComponent<Animator>();
         wallRunTimer = wallRunTime;
@@ -230,6 +231,8 @@ public class PlayerController : MonoBehaviour, IDamage
     public void takeDamage(float amount)
     {
         currentHP -= amount;
+        updatePlayerUI();
+        updateHpUI();
         StartCoroutine(flashRed());
         if (currentHP <= 0)
         {
@@ -242,5 +245,13 @@ public class PlayerController : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
+    }
+    public void updatePlayerUI()
+    {
+        GameManager.instance.playerHPBar.fillAmount = (float)currentHP / maxHP;
+    }
+    public void updateHpUI()
+    {
+        GameManager.instance.updatePlayerHpUI(currentHP);
     }
 }
