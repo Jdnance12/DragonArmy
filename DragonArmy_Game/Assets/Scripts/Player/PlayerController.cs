@@ -61,6 +61,13 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] float grabPointDistance;
     [SerializeField] float lerpSpeed;
 
+    [Header("----- Player Sounds -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip[] audDead;
+    [SerializeField] [Range(0, 1)] float audDeadVol;
+
 
     // Start is called before the first frame update
     void Start()
@@ -234,10 +241,12 @@ public class PlayerController : MonoBehaviour, IDamage
         updatePlayerUI();
         updateHpUI();
         StartCoroutine(flashRed());
+        aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         if (currentHP <= 0)
         {
             //Hey I'm Dead!
             GameManager.instance.youLose();
+            aud.PlayOneShot(audDead[Random.Range(0, audDamage.Length)], audDeadVol);
         }
     }
     IEnumerator flashRed()

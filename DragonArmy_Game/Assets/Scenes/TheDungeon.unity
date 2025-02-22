@@ -547,6 +547,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4481691189018167600, guid: 75e217fcb0fd4224abccdae680748997, type: 3}
+      propertyPath: attackRange
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4481691189018167601, guid: 75e217fcb0fd4224abccdae680748997, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -10041,7 +10045,7 @@ PrefabInstance:
     - target: {fileID: 8303971051661796618, guid: 054a2c723245ef04baedb2e18c3f2f9e, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: f0830a56c9c999a48a1683c86ef275ab, type: 3}
+      objectReference: {fileID: 8300000, guid: b096eb25cdddb7841bef8cf50d1055bb, type: 3}
     - target: {fileID: 8303971051661796619, guid: 054a2c723245ef04baedb2e18c3f2f9e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

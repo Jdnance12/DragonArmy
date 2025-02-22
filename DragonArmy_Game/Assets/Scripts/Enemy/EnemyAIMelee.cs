@@ -22,6 +22,15 @@ public class EnemyAIMelee : MonoBehaviour, IDamage
     [SerializeField] Transform[] waypoints;
     [SerializeField] Transform playerTrans;
 
+    [Header("----- Enemy Sounds -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip[] audDead;
+    [SerializeField] [Range(0, 1)] float audDeadVol;
+    [SerializeField] AudioClip[] audAttack;
+    [SerializeField] [Range(0, 1)] float audAttackVol;
+
     int currentWaypointIndex;
     Color colorOrig;
     Vector3 playerDir;

@@ -38,6 +38,15 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
 
     Coroutine co;
 
+    [Header("----- Enemy Sounds -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip[] audDead;
+    [SerializeField] [Range(0, 1)] float audDeadVol;
+    [SerializeField] AudioClip[] audAttack;
+    [SerializeField] [Range(0, 1)] float audAttackVol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -156,10 +165,12 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
             StopCoroutine(co);
         isRoaming = false;
         StartCoroutine(flashRed());
+        aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         if (HP <= 0)
         {
             //I'm dead
             Destroy(gameObject);
+            aud.PlayOneShot(audDead[Random.Range(0, audDamage.Length)], audDeadVol);
         }
     }
 
@@ -169,6 +180,7 @@ public class RangedEnemyAI : MonoBehaviour, IDamage
        // anim.SetTrigger("Shoot");
 
         Instantiate(bullet, shootPOS.position, transform.rotation);
+        aud.PlayOneShot(audAttack[Random.Range(0, audDamage.Length)], audAttackVol);
         yield return new WaitForSeconds(shootRate);
 
         isShooting = false;

@@ -33,6 +33,15 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
 
     Coroutine co;
 
+    [Header("----- Enemy Sounds -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip[] audDead;
+    [SerializeField] [Range(0, 1)] float audDeadVol;
+    [SerializeField] AudioClip[] audAttack;
+    [SerializeField] [Range(0, 1)] float audAttackVol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,9 +108,9 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
         // AttackAnimation
         //anim.SetTrigger("Attack1");
         // Attack Player
-        //GameManager.instance.playerScript.takeDamage(damage);
+        GameManager.instance.playerScript.takeDamage(damage);
         Debug.Log("ATTACK!!!!");
-
+        aud.PlayOneShot(audAttack[Random.Range(0, audDamage.Length)], audAttackVol);
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
     }
@@ -134,11 +143,12 @@ public class MeleeEnemyAI : MonoBehaviour, IDamage
         agent.SetDestination(GameManager.instance.player.transform.position);
         isRoaming = false;
         StartCoroutine(flashRed());
-
+        aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         if (HP <= 0)
         {
             // Dead
             Destroy(gameObject);
+            aud.PlayOneShot(audDead[Random.Range(0, audDamage.Length)], audDeadVol);
         }
 
     }

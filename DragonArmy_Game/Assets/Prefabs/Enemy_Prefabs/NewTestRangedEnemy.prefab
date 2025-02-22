@@ -177,6 +177,16 @@ MonoBehaviour:
   animSpeedTrans: 8
   bullet: {fileID: 3168025159710165895, guid: 1251054039add50459af03050754c325, type: 3}
   shootRate: 2
+  aud: {fileID: 1796937373005577482, guid: fe9e80f989c9e4148a16905ca6a47a7b, type: 3}
+  audDamage:
+  - {fileID: 8300000, guid: 2b27255377d402941b5cca0b9a7c4975, type: 3}
+  audDamageVol: 0.5
+  audDead:
+  - {fileID: 8300000, guid: eacf27d6ef107c94e9892c7b54b0642e, type: 3}
+  audDeadVol: 0.5
+  audAttack:
+  - {fileID: 8300000, guid: 887f32b5ffc4ec44ab0f2105a4308fa7, type: 3}
+  audAttackVol: 0.5
 --- !u!33 &7265700246337042298
 MeshFilter:
   m_ObjectHideFlags: 0

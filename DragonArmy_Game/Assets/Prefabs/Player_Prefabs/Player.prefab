@@ -1481,6 +1481,16 @@ MonoBehaviour:
   model: {fileID: 2905424970072945407}
   grabPointDistance: 0
   lerpSpeed: 0
+  aud: {fileID: 1796937373005577482, guid: fe9e80f989c9e4148a16905ca6a47a7b, type: 3}
+  audDamage:
+  - {fileID: 8300000, guid: 86d494550d423764d88f829a70a028db, type: 3}
+  - {fileID: 8300000, guid: 12ba6cb75fc272f4dbd8e03912669bc2, type: 3}
+  - {fileID: 8300000, guid: 82867559126d88d4bbaa6172cbbda87c, type: 3}
+  - {fileID: 8300000, guid: a348544c5d47a3c4ab2f4c43b6e90890, type: 3}
+  audDamageVol: 0.5
+  audDead:
+  - {fileID: 8300000, guid: eacf27d6ef107c94e9892c7b54b0642e, type: 3}
+  audDeadVol: 0.81
 --- !u!143 &85162420472455951
 CharacterController:
   m_ObjectHideFlags: 0

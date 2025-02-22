@@ -61,7 +61,17 @@ MonoBehaviour:
   FOV: 90
   damage: 2
   attackCooldown: 1
-  attackRange: 2.5
+  attackRange: 1
+  aud: {fileID: 1796937373005577482, guid: fe9e80f989c9e4148a16905ca6a47a7b, type: 3}
+  audDamage:
+  - {fileID: 8300000, guid: 2b27255377d402941b5cca0b9a7c4975, type: 3}
+  audDamageVol: 0.51
+  audDead:
+  - {fileID: 8300000, guid: eacf27d6ef107c94e9892c7b54b0642e, type: 3}
+  audDeadVol: 0.54
+  audAttack:
+  - {fileID: 8300000, guid: 4ef49eb797389834ba3141a62acc06f7, type: 3}
+  audAttackVol: 0.57
 --- !u!33 &4481691189018167603
 MeshFilter:
   m_ObjectHideFlags: 0
