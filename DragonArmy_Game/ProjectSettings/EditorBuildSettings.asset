@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/TheDungeon.unity
     guid: 2e2a89a5129c30a449f5b8f9eacdf9f8
   - enabled: 1
+    path: Assets/Scenes/TheForest.unity
+    guid: fbd37b9e263e3e14d8a7fbcf7ba8de7a
+  - enabled: 1
+    path: Assets/Scenes/TheCity.unity
+    guid: 89fffc641a35fe444a8d7f0102ce8f3e
+  - enabled: 1
     path: Assets/Scenes/TheEnd.unity
     guid: 7d3075cc6f6206a42b846ca4eabe3603
   m_configObjects: {}
