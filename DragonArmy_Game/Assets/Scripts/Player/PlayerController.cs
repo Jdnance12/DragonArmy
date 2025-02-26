@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         //Initializing Stats
         currentHP = maxHP;
+        isGrounded = true;
     }
 
     // Update is called once per frame
